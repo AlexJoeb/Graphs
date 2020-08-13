@@ -14,11 +14,33 @@ It will be easier to build your extended social network if you have users to tes
 >>> sg = SocialGraph()
 >>> sg.populate_graph(10, 2)  # Creates 10 users with an average of 2 friends each
 >>> print(sg.friendships)
-{1: {8, 10, 5}, 2: {10, 5, 7}, 3: {4}, 4: {9, 3}, 5: {8, 1, 2}, 6: {10}, 7: {2}, 8: {1, 5}, 9: {4}, 10: {1, 2, 6}}
+{
+    1: {8, 10, 5},
+    2: {10, 5, 7},
+    3: {4}, 
+    4: {9, 3},
+    5: {8, 1, 2},
+    6: {10},
+    7: {2},
+    8: {1, 5},
+    9: {4},
+    10: {1, 2, 6}
+}
 >>> sg = SocialGraph()
 >>> sg.populate_graph(10, 2)
 >>> print(sg.friendships)
-{1: {8}, 2: set(), 3: {6}, 4: {9, 5, 7}, 5: {9, 10, 4, 6}, 6: {8, 3, 5}, 7: {4}, 8: {1, 6}, 9: {10, 4, 5}, 10: {9, 5}}
+{
+    1: {8},
+    2: set(),
+    3: {6},
+    4: {9, 5, 7},
+    5: {9, 10, 4, 6},
+    6: {8, 3, 5},
+    7: {4},
+    8: {1, 6},
+    9: {10, 4, 5},
+    10: {9, 5}
+}
 ```
 
 Note that in the above example, the average number of friendships is exactly 2 but the actual number of friends per user ranges anywhere from 0 to 4.
