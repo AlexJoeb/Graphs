@@ -1,3 +1,7 @@
+from collections import deque
+import random
+
+
 class User:
     def __init__(self, name):
         self.name = name
@@ -46,7 +50,21 @@ class SocialGraph:
 
         # Add users
 
+        for i in range(0, num_users):
+            self.add_user(i)
+        
         # Create friendships
+
+        possibles = []
+        for uid in self.users:
+            for fid in range(uid + 1, self.last_id + 1):
+                possibles.append((uid, fid))
+
+        random.shuffle(possibles) # Shuffle the friendship list.
+
+        for indx in range(num_users * avg_friendships // 2):
+            friendship = possibles[indx]
+            self.add_friendship(friendship[0], friendship[1])
 
     def get_all_social_paths(self, user_id):
         """
@@ -59,12 +77,31 @@ class SocialGraph:
         """
         visited = {}  # Note that this is a dictionary, not a set
         # !!!! IMPLEMENT ME
+
+        # Approach: Taking a breadth-first search approach to this so I can incrementally step through friends and keep track of their relations.
+        def bfs(user_id):
+
+            queue = deque() # Initialize a queue.
+            queue.append([user_id]) # Append the starting friend
+
+            while len(queue):
+                path = queue.pop()
+                vert = path[-1]
+                if vert not in visited:
+                    visited[vert] = path
+                    
+                    for friend in self.friendships[vert]:
+                        path_copy = list(path)
+                        path_copy.append(friend)
+                        q.append(path_copy)
+        bfs(user_id)
+
         return visited
 
 
 if __name__ == '__main__':
     sg = SocialGraph()
     sg.populate_graph(10, 2)
-    print(sg.friendships)
+    print(f'Friendships: {sg.friendships}')
     connections = sg.get_all_social_paths(1)
-    print(connections)
+    print(f"Connections: {connections}")
